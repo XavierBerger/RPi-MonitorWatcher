@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -85,17 +86,26 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_status) {
-            // Handle the camera action
+
+            // Handle the status action
+
         } else if (id == R.id.nav_statistics) {
 
+            // Handle the statistics action
+
         } else if (id == R.id.nav_share) {
+
+            // Handle the share action
+
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.menu_share_content));
             shareIntent.setType("text/plain");
-            startActivity(shareIntent);
+            startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.menu_share)));
 
         } else if (id == R.id.nav_donate) {
+
+            // Handle the donate action
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.me/cyberto"));
             startActivity(browserIntent);
         }
