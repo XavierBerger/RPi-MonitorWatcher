@@ -8,5 +8,10 @@
 
     <string name="menu_statistics">Statistics</string>
     <string name="menu_status">Status</string>
+    <string name="menu_slogan">Watch your Raspberries!</string>
+    <string name="menu_donate">Donate</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_spread">Spread the world</string>
+    <string name="menu_share_content">Check out this awesome \"Raspberry Pi Monitor Watcher\" app for Android!\nRaspberry Pi Monitor: https://github.com/XavierBerger/RPi-Monitor\nRaspberry Pi Monitor Watcher: https://github.com/tobiasfiechter/RPi-MonitorWatcher</string>
 
 </resources>
