@@ -3,10 +3,8 @@ package io.hotkey.rpi_monitorwatcher.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.ShareActionProvider;
-import android.view.View;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import io.hotkey.rpi_monitorwatcher.R;
+import io.hotkey.rpi_monitorwatcher.ui.fragment.StatisticsFragment;
+import io.hotkey.rpi_monitorwatcher.ui.fragment.StatusFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,23 +28,24 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Add a RBPI", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Create a new Fragment to be placed in the activity layout
+        StatusFragment statusFragment = new StatusFragment();
+
+        // In case this activity was started with special instructions from an
+        // Intent, pass the Intent's extras to the fragment as arguments
+        statusFragment.setArguments(getIntent().getExtras());
+
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, statusFragment).commit();
     }
 
     @Override
@@ -79,7 +80,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -88,10 +88,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_status) {
 
             // Handle the status action
+            Fragment statusFragment = new StatusFragment();
+            exchangeFragment(statusFragment, true);
 
         } else if (id == R.id.nav_statistics) {
 
             // Handle the statistics action
+            Fragment statisticsFragment = new StatisticsFragment();
+            exchangeFragment(statisticsFragment, true);
 
         } else if (id == R.id.nav_share) {
 
@@ -113,5 +117,22 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     *
+     * @param fragment  The fragment we want to change to
+     * @param history   true, if the transaction should be navigatable
+     */
+    public void exchangeFragment(Fragment fragment, boolean history){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.fragment_container, fragment);
+        if(history) transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
     }
 }
