@@ -13,43 +13,54 @@ public class Raspberry extends SugarRecord {
     @Unique
     InetSocketAddress address;
     String title;
-    String statusUptime;
-    String statusCPULoad;
-    String statusTemperature;
-    String statusSwap;
-    String statusSDCard;
-    String statusNetwork;
+    float statusUptime;
+    float statusCPULoad;
+    float statusTemperature;
+    float statusSwap;
+    float statusSDCard;
+    int statusNetworkReceived;
+    int statusNetworkSent;
 
     public Raspberry() {
 
+    }
+
+    public Raspberry(String title, float statusUptime, float statusCPULoad, float statusTemperature, float statusSwap, float statusSDCard, int statusNetworkReceived) {
+        this.title = title;
+        this.statusUptime = statusUptime;
+        this.statusCPULoad = statusCPULoad;
+        this.statusTemperature = statusTemperature;
+        this.statusSwap = statusSwap;
+        this.statusSDCard = statusSDCard;
+        this.statusNetworkReceived = statusNetworkReceived;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getStatusUptime() {
+    public float getStatusUptime() {
         return statusUptime;
     }
 
-    public String getStatusCPULoad() {
+    public float getStatusCPULoad() {
         return statusCPULoad;
     }
 
-    public String getStatusTemperature() {
+    public float getStatusTemperature() {
         return statusTemperature;
     }
 
-    public String getStatusSwap() {
+    public float getStatusSwap() {
         return statusSwap;
     }
 
-    public String getStatusSDCard() {
+    public float getStatusSDCard() {
         return statusSDCard;
     }
 
-    public String getStatusNetwork() {
-        return statusNetwork;
+    public int getStatusNetwork() {
+        return statusNetworkReceived;
     }
 
 }

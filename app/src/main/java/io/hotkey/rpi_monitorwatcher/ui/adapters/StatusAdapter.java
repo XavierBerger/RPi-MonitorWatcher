@@ -1,61 +1,107 @@
 package io.hotkey.rpi_monitorwatcher.ui.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.List;
+
 import io.hotkey.rpi_monitorwatcher.R;
+import io.hotkey.rpi_monitorwatcher.model.Raspberry;
 
 /**
  * Created by Tobias Fiechter on 24.01.2016.
  */
-public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder> {
-    private String[] mDataset;
+public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.RaspberryViewHolder> {
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView mTextView;
-        public ViewHolder(TextView v) {
-            super(v);
-            mTextView = v;
+    List<Raspberry> list = Collections.emptyList();
+    Context context;
+
+    public StatusAdapter(List<Raspberry> list, Context context) {
+        this.list = list;
+        this.context = context;
+    }
+
+    @Override
+    public RaspberryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //Inflate the layout, initialize the View Holder
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.raspberry_listing_entry, parent, false);
+        RaspberryViewHolder holder = new RaspberryViewHolder(v);
+        return holder;
+
+    }
+
+    @Override
+    public void onBindViewHolder(RaspberryViewHolder holder, int position) {
+
+        //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
+        float uptimeInSeconds = list.get(position).getStatusUptime();
+        String uptime = uptimeInSeconds+" sec.";
+        holder.statusUptime.setText(uptime);
+
+        holder.statusCPULoad.setProgress((int)list.get(position).getStatusCPULoad());
+
+        holder.statusTemperature.setProgress((int)list.get(position).getStatusTemperature());
+
+        holder.statusSwap.setText(list.get(position).getStatusSwap()+" MB");
+        holder.statusSDCard.setText(list.get(position).getStatusSDCard()+" MB");
+        holder.statusNetworkReceived.setText(list.get(position).getStatusNetwork()+"s");
+
+        //animate(holder);
+    }
+
+    @Override
+    public int getItemCount() {
+        //returns the number of elements the RecyclerView will display
+        return list.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    // Insert a new item to the RecyclerView on a predefined position
+    public void insert(int position, Raspberry data) {
+        list.add(position, data);
+        notifyItemInserted(position);
+    }
+
+    // Remove a RecyclerView item containing a specified Data object
+    public void remove(Raspberry data) {
+        int position = list.indexOf(data);
+        list.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public class RaspberryViewHolder extends RecyclerView.ViewHolder {
+
+        TextView title;
+        TextView statusUptime;
+        ProgressBar statusCPULoad;
+        ProgressBar statusTemperature;
+        TextView statusSwap;
+        TextView statusSDCard;
+        TextView statusNetworkReceived;
+
+        RaspberryViewHolder(View itemView) {
+            super(itemView);
+            title = (TextView) itemView.findViewById(R.id.status_title);
+            statusUptime = (TextView) itemView.findViewById(R.id.status_uptime);
+            statusCPULoad = (ProgressBar) itemView.findViewById(R.id.status_cpu_load);
+            statusTemperature = (ProgressBar) itemView.findViewById(R.id.status_temperature);
+            statusSwap = (TextView) itemView.findViewById(R.id.status_swap);
+            statusSDCard = (TextView) itemView.findViewById(R.id.status_sdcard);
+            statusNetworkReceived = (TextView) itemView.findViewById(R.id.status_network_received);
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public StatusAdapter(String[] myDataset) {
-        mDataset = myDataset;
-    }
-
-    // Create new views (invoked by the layout manager)
-    @Override
-    public StatusAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
-        // create a new view
-        TextView v = (TextView)LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.content_status_card, parent, false);
-        // set the view's size, margins, paddings and layout parameters
-
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
-
-    }
-
-    // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getItemCount() {
-        return mDataset.length;
-    }
 }
+
+

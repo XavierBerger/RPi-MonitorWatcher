@@ -14,7 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.orm.SugarContext;
+
 import io.hotkey.rpi_monitorwatcher.R;
+import io.hotkey.rpi_monitorwatcher.model.Raspberry;
 import io.hotkey.rpi_monitorwatcher.ui.fragment.StatisticsFragment;
 import io.hotkey.rpi_monitorwatcher.ui.fragment.StatusFragment;
 
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity
         // Add the fragment to the 'fragment_container' FrameLayout
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, statusFragment).commit();
+
+        SugarContext.init(this);
     }
 
     @Override
