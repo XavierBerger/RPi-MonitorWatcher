@@ -24,11 +24,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23+'
     compile 'com.android.support:design:23+'
+    compile 'com.android.support:cardview-v7:23.0.+'
+    compile 'com.android.support:recyclerview-v7:23.0.+'
     //retrofit for network communication
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     //otto for local communication between service and activities
     compile 'com.squareup:otto:1.3.8'
-    //material listview
-    compile 'com.github.dexafree:materiallist:3.1.2'
-
 }
