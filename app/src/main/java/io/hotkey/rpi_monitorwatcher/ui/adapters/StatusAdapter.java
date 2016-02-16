@@ -23,9 +23,9 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.RaspberryV
     List<Raspberry> list = Collections.emptyList();
     Context context;
 
-    public StatusAdapter(List<Raspberry> list, Context context) {
-        this.list = list;
+    public StatusAdapter(Context context) {
         this.context = context;
+        reloadData();
     }
 
     @Override
@@ -67,17 +67,9 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.RaspberryV
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    // Insert a new item to the RecyclerView on a predefined position
-    public void insert(int position, Raspberry data) {
-        list.add(position, data);
-        notifyItemInserted(position);
-    }
-
-    // Remove a RecyclerView item containing a specified Data object
-    public void remove(Raspberry data) {
-        int position = list.indexOf(data);
-        list.remove(position);
-        notifyItemRemoved(position);
+    public void reloadData() {
+        list = Raspberry.listAll(Raspberry.class);
+        this.notifyDataSetChanged();
     }
 
     public class RaspberryViewHolder extends RecyclerView.ViewHolder {
