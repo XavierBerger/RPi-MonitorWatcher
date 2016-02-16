@@ -25,8 +25,9 @@ public class Raspberry extends SugarRecord {
 
     }
 
-    public Raspberry(String title, float statusUptime, float statusCPULoad, float statusTemperature, float statusSwap, float statusSDCard, int statusNetworkReceived) {
+    public Raspberry(String title, InetSocketAddress address, float statusUptime, float statusCPULoad, float statusTemperature, float statusSwap, float statusSDCard, int statusNetworkReceived) {
         this.title = title;
+        this.address = address;
         this.statusUptime = statusUptime;
         this.statusCPULoad = statusCPULoad;
         this.statusTemperature = statusTemperature;

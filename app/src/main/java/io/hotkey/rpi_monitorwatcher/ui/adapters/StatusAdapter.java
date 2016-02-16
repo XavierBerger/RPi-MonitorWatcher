@@ -24,8 +24,8 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.RaspberryV
     Context context;
 
     public StatusAdapter(Context context) {
-        this.context = context;
         reloadData();
+        this.context = context;
     }
 
     @Override
@@ -41,14 +41,12 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.RaspberryV
     public void onBindViewHolder(RaspberryViewHolder holder, int position) {
 
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
+        holder.title.setText(list.get(position).getTitle());
         float uptimeInSeconds = list.get(position).getStatusUptime();
         String uptime = uptimeInSeconds+" sec.";
         holder.statusUptime.setText(uptime);
-
         holder.statusCPULoad.setProgress((int)list.get(position).getStatusCPULoad());
-
         holder.statusTemperature.setProgress((int)list.get(position).getStatusTemperature());
-
         holder.statusSwap.setText(list.get(position).getStatusSwap()+" MB");
         holder.statusSDCard.setText(list.get(position).getStatusSDCard()+" MB");
         holder.statusNetworkReceived.setText(list.get(position).getStatusNetwork()+"s");

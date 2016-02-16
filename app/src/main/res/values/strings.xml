@@ -12,7 +12,9 @@
     <string name="menu_donate">Donate</string>
     <string name="menu_share">Share</string>
     <string name="menu_spread">Spread the world</string>
-    <string name="menu_share_content">Check out this awesome \"Raspberry Pi Monitor Watcher\" app for Android!\nRaspberry Pi Monitor: https://github.com/XavierBerger/RPi-Monitor\nRaspberry Pi Monitor Watcher: https://github.com/tobiasfiechter/RPi-MonitorWatcher</string>
+    <string name="menu_share_content">Check out this awesome \"Raspberry Pi Monitor Watcher\" app for Android!\n
+        Raspberry Pi Monitor: https://github.com/XavierBerger/RPi-Monitor\n
+        Raspberry Pi Monitor Watcher: https://github.com/tobiasfiechter/RPi-MonitorWatcher</string>
     <string name="status_uptime">uptime:</string>
     <string name="status_cpu_load">CPU load:</string>
     <string name="status_temperature">temperature:</string>
@@ -20,5 +22,8 @@
     <string name="status_swap">swap:</string>
     <string name="status_sdcard">SD card:</string>
     <string name="status_network">network:</string>
-
+    <string name="status_add_raspi_dialog_title">Add your Raspberry Pi</string>
+    <string name="status_add_raspi_title">Title</string>
+    <string name="status_add_raspi_ip">IP:Port (E.g. 192.168.0.3:8888)</string>
+    <string name="status_add_raspi_error">Check your input</string>
 </resources>

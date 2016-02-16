@@ -8,7 +8,7 @@ import retrofit.http.GET;
 interface PiMonitorWatcherService {
 
 
-    @GET("/dynamic.json?_=1448530332355") //TODO: whats this timestamp?
+    @GET("/dynamic.json?_=1448530332355") //TODO: what's this timestamp?
     StatusResponse getStatusResponse();
 
     static class StatusResponse {
